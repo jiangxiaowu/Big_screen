@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big screen</title>
+    <script src="js/script.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.liMarquee.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="liMarquee.css">
+    <style>
+        .dowebok {
+            width: 350px;
+            height: 400px;
+            margin: 100px auto;
+            font-size: 14px;
+        }
+
+        .dowebok ul {
+            margin: 0;
+            line-height: 30px;
+        }
+
+        .dowebok a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dowebok a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <img src='./img/title.jpg' id='icon' />
+            <div class="title">文胜生物仓库数据监控大屏</div>
+        </div>
+        <div class="context">
+            <div class="left">
+                <div id="table_frist"></div>
+                <div id="table_second"></div>
+            </div>
+            <div class="middle">
+                <div class="number">
+                    <ul>
+                        <li>2</li>
+                        <li>0</li>
+                        <li>3</li>
+                        <li>8</li>
+                        <li>6</li>
+                    </ul>
+                </div>
+                <!-- <img src="./img/earthsmall.jpg" alt="" /> -->
+                <div class="message_table"></div>
+            </div>
+            <div class="right">
+                <div class="little">通知</div>
+                <div class="dowebok">
+                    <ul>
+                        <li><a href="">Smoothslides – 可平移的jQuery幻灯片插件</a></li>
+                        <li><a href="">jQuery全屏滚动插件fullPage.js</a></li>
+                        <li><a href="">WOW.js – 让页面滚动更有趣</a></li>
+                        <li><a href="">让IE7 IE8支持CSS3 background-size属性</a></li>
+                        <li><a href="">shCircleLoader – jQuery Loading效果插件</a></li>
+
+                    </ul>
+                </div>
+                <div class="data">今日</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart_frist = echarts.init(document.getElementById('table_frist'));
+        // console.log(document.getElementById('table_frist'));
+        // 指定图表的配置项和数据
+        var option_frist = {
+            //标题
+            title: [{
+                text: '·出库信息概览',//主标题
+                left: 30,
+                textStyle: {
+                    color: 'white',
+                    fontSize: 20,
+                    fontStyle: "normal",
+                    fontFamily: "sans-serif",
+                    fontWeight: "normal",
+                },
+            }, {
+                text: '（单位/包）（单位/月）',//副标题
+                left: 130,
+                top: 10,
+                textStyle: {
+                    color: 'white',
+                    fontSize: 12,
+                },
+                padding: [0, 0, 10, 40] //标题位置
+            }],
+            //legend  标题旁边有个小字
+
+            legend: {
+                type: 'plain',  // 图列类型，默认为 'plain'
+                top: '1%',  // 图列相对容器的位置 top\bottom\left\right
+                height: "100",
+                orient: 'horizontal',
+                padding: [260, 0, 0, 0],
+                selected: {
+                    // '销量': true  // 图列选择，图形加载出来会显示选择的图列，默认为true
+                },
+                textStyle: {  // 图列内容样式
+                    color: 'white',  // 字体颜色
+                    // backgroundColor: 'black'  // 字体背景色
+                },
+                tooltip: {  // 图列提示框，默认不显示
+                    show: true,
+                    trigger: 'axis',
+                    // color: 'red'
+                },
+            },
+
+            // ---  提示框 ----
+            tooltip: {
+                show: true,   // 是否显示提示框，默认为true
+                // trigger: 'item', // 数据项图形触发
+                axisPointer: {   // 指示样式
+                    // type: 'shadow',
+                    // axis: 'auto'
+                },
+                // padding: 5,
+                textStyle: {   // 提示框内容的样式
+                    // color: '#fff'
+                }
+            },
+            // ---- gird区域 ---
+            // gird: {
+            //     show: false,    // 是否显示直角坐标系网格
+            //     top: 0,  // 相对位置 top\bottom\left\right
+            //     containLabel: false, // gird 区域是否包含坐标轴的刻度标签
+            //     tooltip: {
+            //         show: false,
+            //         trigger: 'item',   // 触发类型
+            //         textStyle: {
+            //             color: '#666'
+            //         }
+            //     }
+            // },
+
+
+            //X轴(横着那个)
+            xAxis: {
+                axisTick: {    // 坐标轴 刻度
+                    show: false,  // 是否显示
+                    inside: false,  // 是否朝内
+                    length: 2,     // 长度
+                    lineStyle: {   // 默认取轴线的样式
+                        color: 'blue',
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {    // 坐标轴标签
+                    show: true,  // 是否显示
+                    inside: false, // 是否朝内
+                    interval: 0, //坐标轴刻度标签的显示间隔,可以设置成 0 强制显示所有标签。
+                    rotate: 0, // 旋转角度
+                    margin: 1, // 刻度标签与轴线之间的距离
+                    color: 'white'  // 字体的颜色 
+                },
+                splitLine: {    // gird区域中的分割线
+                    show: false,  // 是否显示
+                    lineStyle: {
+                        // color: 'red',
+                        // width: 1,
+                        // type: 'solid'
+                    }
+                },
+                splitArea: {    // 网格区域
+                    show: false  // 是否显示，默认为false,选true会有阴影,不透明
+                },
+                data: ["乌金冠", "追吧劲", "靶向肥", "硫利丰", "文胜配方肥", "红皖配方肥"]
+            },
+
+            //y轴
+
+            yAxis: [{
+                show: true,// 是否显示
+                position: 'left',// y轴位置
+
+                axisLine: { // 坐标轴 轴线
+                    show: true,
+                    symbol: ['none'],
+                    // ----- 线 -------
+                    lineStyle: {
+                        color: 'white',
+                        width: 1,
+                        type: 'solid',
+                    }
+                },
+
+                type: 'value',
+                scale: true,
+                max: 50000,
+                min: 0,
+                splitNumber: 1,
+                boundaryGap: [0.2, 0.2],
+
+                axisTick: {      // 坐标轴的刻度
+                    show: false,    // 是否显示
+                    inside: true,  // 是否朝内
+                    length: 4,      // 长度
+                    lineStyle: {
+                        color: 'red',  // 默认取轴线的颜色
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+
+
+                axisLabel: {      // 坐标轴的标签
+                    show: false,    // 是否显示
+                    inside: false,  // 是否朝内
+                    rotate: 0,     // 旋转角度
+                    margin: 8,     // 刻度标签与轴线之间的距离
+                    color: 'blue',  // 默认标签的颜色
+                },
+                splitLine: {    // gird 区域中的分割线
+                    show: false,   // 是否显示
+                    lineStyle: {
+                        color: '#666',
+                        width: 1,
+                        type: 'dashed'
+                    }
+                },
+                splitArea: {     // 网格区域
+                    show: false   // 是否显示，默认为false
+                }
+            }],
+
+            //  -------   内容数据 -------
+            series: [{
+                name: '',
+                type: 'bar',
+                label: { // 图形上的文本标签
+                    normal: {
+                        show: true,
+                        position: 'top',
+                        rotate: 0,  // 旋转角度
+                        color: 'white'
+                    },
+                },
+
+                itemStyle: { // 图形的形状
+                    normal: {
+                        color: function (params) {
+                            var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83'];
+                            return colorList[params.dataIndex]
+                        }
+                    },
+                },
+                barWidth: 35,//柱图宽度
+                barCategoryGap: '5%',  // 柱形的间距
+                data: [13745, 20542, 9065, 26778, 6089, 12444]
+            }]
+        };
+
+        var myChart_second = echarts.init(document.getElementById('table_second'));
+        // console.log(document.getElementById('table_second'));
+        // 指定图表的配置项和数据
+        var option_second = {
+            //标题
+            title: [{
+                text: '·入库信息概览',//主标题
+                left: 30,
+                textStyle: {
+                    color: 'white',
+                    fontSize: 20,
+                    fontStyle: "normal",
+                    fontFamily: "sans-serif",
+                    fontWeight: "normal",
+                },
+            }, {
+                text: '合格（单位/包）',
+                left: 130,
+                top: 10,
+                textStyle: {
+                    color: 'white',
+                    fontSize: 12,
+                },
+                padding: [0, 0, 10, 40] //标题位置
+            }],
+            //legend  标题旁边有个小字
+
+            legend: {
+                type: 'plain',  // 图列类型，默认为 'plain'
+                top: '1%',  // 图列相对容器的位置 top\bottom\left\right
+                height: "100",
+                orient: 'horizontal',
+                padding: [260, 0, 0, 0],
+                selected: {
+                    // '销量': true  // 图列选择，图形加载出来会显示选择的图列，默认为true
+                },
+                textStyle: {  // 图列内容样式
+                    color: 'white',  // 字体颜色
+                    // backgroundColor: 'black'  // 字体背景色
+                },
+                tooltip: {  // 图列提示框，默认不显示
+                    show: true,
+                    trigger: 'axis',
+                    // color: 'red'
+                },
+                data: [   // 图列内容
+                    {
+                        name: '总数17195包',
+                        icon: 'circle',
+                        textStyle: {
+                            color: 'white',  // 单独设置某一个图列的颜色
+                        }
+                    },
+                    {
+                        name: '待入库34239包',
+                        icon: 'circle',
+                        textStyle: {
+                            color: 'white',  // 单独设置某一个图列的颜色
+                        }
+                    },
+                    {
+                        name: '已入库136956包',
+                        icon: 'circle',
+                        textStyle: {
+                            color: 'white',  // 单独设置某一个图列的颜色
+                        }
+                    },
+                ]
+            },
+
+            // ---  提示框 ----
+            tooltip: {
+                show: true,   // 是否显示提示框，默认为true
+                // trigger: 'item', // 数据项图形触发
+                axisPointer: {   // 指示样式
+                    // type: 'shadow',
+                    // axis: 'auto'
+                },
+                // padding: 5,
+                textStyle: {   // 提示框内容的样式
+                    // color: '#fff'
+                }
+            },
+            // ---- gird区域 ---
+            // gird: {
+            //     show: false,    // 是否显示直角坐标系网格
+            //     top: 0,  // 相对位置 top\bottom\left\right
+            //     containLabel: false, // gird 区域是否包含坐标轴的刻度标签
+            //     tooltip: {
+            //         show: false,
+            //         trigger: 'item',   // 触发类型
+            //         textStyle: {
+            //             color: '#666'
+            //         }
+            //     }
+            // },
+
+
+            //X轴(横着那个)
+            xAxis: {
+                axisTick: {    // 坐标轴 刻度
+                    show: false,  // 是否显示
+                    inside: false,  // 是否朝内
+                    length: 2,     // 长度
+                    lineStyle: {   // 默认取轴线的样式
+                        color: 'blue',
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {    // 坐标轴标签
+                    show: true,  // 是否显示
+                    inside: false, // 是否朝内
+                    interval: 0, //坐标轴刻度标签的显示间隔,可以设置成 0 强制显示所有标签。
+                    rotate: 0, // 旋转角度
+                    margin: 1, // 刻度标签与轴线之间的距离
+                    color: 'white'  // 字体的颜色 
+                },
+                splitLine: {    // gird区域中的分割线
+                    show: false,  // 是否显示
+                    lineStyle: {
+                        // color: 'red',
+                        // width: 1,
+                        // type: 'solid'
+                    }
+                },
+                splitArea: {    // 网格区域
+                    show: false  // 是否显示，默认为false,选true会有阴影,不透明
+                },
+                data: ["乌金冠", "追吧劲", "靶向肥", "硫利丰", "文胜配方肥", "红皖配方肥"]
+            },
+
+            //y轴
+
+            yAxis: [{
+                show: true,// 是否显示
+                position: 'left',// y轴位置
+
+                axisLine: { // 坐标轴 轴线
+                    show: true,
+                    symbol: ['none'],
+                    // ----- 线 -------
+                    lineStyle: {
+                        color: 'white',
+                        width: 1,
+                        type: 'solid',
+                    }
+                },
+
+                type: 'value',
+                scale: true,
+                max: 50000,
+                min: 0,
+                splitNumber: 1,
+                boundaryGap: [0.2, 0.2],
+
+                axisTick: {      // 坐标轴的刻度
+                    show: false,    // 是否显示
+                    inside: true,  // 是否朝内
+                    length: 4,      // 长度
+                    lineStyle: {
+                        color: 'red',  // 默认取轴线的颜色
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+
+
+                axisLabel: {      // 坐标轴的标签
+                    show: false,    // 是否显示
+                    inside: false,  // 是否朝内
+                    rotate: 0,     // 旋转角度
+                    margin: 8,     // 刻度标签与轴线之间的距离
+                    color: 'blue',  // 默认标签的颜色
+                },
+                splitLine: {    // gird 区域中的分割线
+                    show: false,   // 是否显示
+                    lineStyle: {
+                        color: '#666',
+                        width: 1,
+                        type: 'dashed'
+                    }
+                },
+                splitArea: {     // 网格区域
+                    show: false   // 是否显示，默认为false
+                }
+            }],
+
+            //  -------   内容数据 -------
+            series: [{
+                name: '总数17195包',
+                type: 'bar',
+                label: { // 图形上的文本标签
+                    normal: {
+                        show: true,
+                        position: 'top',
+                        rotate: 0,  // 旋转角度
+                        color: 'white'
+                    },
+                },
+
+                itemStyle: { // 图形的形状
+                    normal: {
+                        color: function (params) {
+                            var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83'];
+                            return colorList[params.dataIndex]
+                        }
+                    },
+                },
+                barWidth: 35,//柱图宽度
+                barCategoryGap: '5%',  // 柱形的间距
+                data: [21195, 6239, 13956, 8939, 18360, 20360]
+            },
+            {
+                name: '待入库34239包',
+                type: 'bar',
+            },
+            {
+                name: '已入库136956包',
+                type: 'bar',
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart_frist.setOption(option_frist);
+        myChart_second.setOption(option_second);
+        //根据窗口的大小变动图表 --- 重点
+        window.onresize = function () {
+            myChart_frist.resize();
+            myChart_second.resize();
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".dowebok").liMarquee({
+                direction: "up",
+            });
+        });
+    </script>
+</body>
+
+</html>

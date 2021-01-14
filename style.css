@@ -1,0 +1,77 @@
+body {
+  width: 500px;
+  height: 400px;
+  position: relative;
+  background: url("./img/background.jpg");
+}
+
+#icon {
+  position: absolute;
+  width: 300px;
+  height: 170px;
+  left: -40px;
+  top: -40px;
+}
+
+.title {
+  position: relative;
+  float: right;
+  color: white;
+  font-size: 30px;
+  margin: 30px;
+  left: 400px;
+}
+
+.context {
+  /* float: right; */
+}
+
+#table_frist {
+  left: -15px;
+  top: 120px;
+  width: 450px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+#table_second {
+  left: -15px;
+  top: 150px;
+  width: 450px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.number {
+  position: relative;
+  color: #fff;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  top: -500px;
+  left: 450px;
+  position: relative;
+}
+ul li {
+  display: inline;
+  background-repeat: no-repeat;
+  background-position: 0px 5px;
+  padding-left: 14px;
+  font-size: 50px;
+}
+
+.right{
+    position: relative;
+    left: 1000px;
+}
+
+.little{
+    color: #fff;
+    position: relative;
+    top: -540px;
+    font-size: 26px;
+}
